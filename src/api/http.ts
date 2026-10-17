@@ -26,8 +26,11 @@ export interface ApiEnvelope<T> {
   warnings: { code: string; message: string }[]
 }
 
-const MODE = (import.meta.env.VITE_API_MODE as string) || 'mock'
-const BASE = (import.meta.env.VITE_API_BASE as string) || '/api/v1'
+// Keep local development on the mock unless explicitly switched to HTTP. Production
+// builds should use the deployed API by default so a missing Vercel env var cannot
+// silently make signup/login run against browser-only demo data.
+const MODE = (import.meta.env.VITE_API_MODE as string) || (import.meta.env.PROD ? 'http' : 'mock')
+const BASE = (import.meta.env.VITE_API_BASE as string) || (import.meta.env.PROD ? 'https://seereonos-backend.onrender.com/api/v1' : '/api/v1')
 
 let mockHandle: ((method: string, path: string, opts: RequestOptions, headers: Record<string, string>) => Promise<ApiEnvelope<unknown>>) | null = null
 async function getMock() {
