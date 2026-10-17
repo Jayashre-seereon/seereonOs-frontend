@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-preview/
+dist-server/
+
+# Local environment overrides and secrets
+.env.local
+.env.*.local
+
+# Logs and debug output
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.log
+
+# Tool caches
+.vite/
+*.tsbuildinfo
+
+# Editor / OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
